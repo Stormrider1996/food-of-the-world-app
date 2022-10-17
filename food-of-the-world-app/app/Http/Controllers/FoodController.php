@@ -16,7 +16,8 @@ class FoodController extends Controller
      */
     public function index()
     {
-        //
+        $food = Food::with('category', 'ingredients', 'tags')->get();
+        return $food;
     }
 
     /**

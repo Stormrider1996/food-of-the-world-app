@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::connection('mysql3')->create('ingredients', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('slug');
+            $table->unsignedBigInteger('food_id');
+            $table->foreign('food_id')->references('id')->on('food')->onDelete('cascade');
             $table->timestamps();
         });
     }

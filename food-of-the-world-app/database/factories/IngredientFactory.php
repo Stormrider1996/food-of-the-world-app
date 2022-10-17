@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Food;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,9 @@ class IngredientFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => $this->faker->word(),
+            'slug' => $this->faker->url(),
+            'food_id' => Food::factory(),
         ];
     }
 }
