@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql4')->create('tags', function (Blueprint $table) {
+        Schema::connection('mysql2')->create('category_translations', function (Blueprint $table) {
             $table->id();
-            $table->string('slug');
-            $table->foreignId('food_id')->constrained();
-            $table->timestamps();
+            $table->foreignId('category_id')->constrained();
+            $table->string('locale')->index();
+            $table->string('title');
+            $table->unique(['category_id', 'locale']);
         });
     }
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::connection('mysql4')->dropIfExists('tags');
+        Schema::connection('mysql2')->dropIfExists('category_translations');
     }
 };

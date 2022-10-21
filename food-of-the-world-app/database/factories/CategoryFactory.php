@@ -17,10 +17,17 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
+        $title = $this->faker->word();
+        
         return [
-            'title' => $this->faker->word(),
             'slug' => $this->faker->url(),
             'food_id' => Food::factory(),        
+            'en' => [
+                'title' => $title,
+            ],
+            'hr' => [
+                'title' => $title . " in Hr",
+            ],
         ];
     }
 }
