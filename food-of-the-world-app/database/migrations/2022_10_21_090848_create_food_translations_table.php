@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('food', function (Blueprint $table) {
+        Schema::create('food_translations', function (Blueprint $table) {
             $table->id();
-            $table->string('status');
-            $table->softDeletes();
-            $table->timestamps();
+            $table->foreignId('food_id')->constrained();
+            $table->string('locale')->index();
+            $table->string('title');
+            $table->string('description');
+            $table->unique(['food_id', 'locale']);
         });
     }
 
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('food');
+        Schema::dropIfExists('food_translations');
     }
 };

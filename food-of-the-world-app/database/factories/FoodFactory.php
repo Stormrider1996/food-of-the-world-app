@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Food;
+use App\Models\FoodTranslation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -29,10 +30,22 @@ class FoodFactory extends Factory
             $status = 'created';
         }
         
+        $title = $faker->foodName();
+        $description = $this->faker->sentence();
+       
         return [
-            'title' => $faker->foodName(),
-            'description' => $this->faker->sentence(),
             'status' => $status,
+            'en' => [
+                'title' => $title,
+                'description' => $description,
+            ],
+            'hr' => [
+                'title' => $title . " in Hr",
+                'description' => $description . " in Hr"
+            ],
+          
         ];
+       
     }
+        
 }
