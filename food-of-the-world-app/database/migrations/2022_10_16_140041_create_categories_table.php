@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::connection('mysql2')->create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('slug');
-            $table->foreignId('food_id')->constrained();
+            $table->foreignId('food_id')->nullable()->constrained();
             $table->timestamps();
         });
     }
