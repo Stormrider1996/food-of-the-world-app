@@ -19,13 +19,14 @@ class FoodResource extends JsonResource
      */
     public function toArray($request)
     {   
+        $translations[] = FoodTranslationResource::collection($this->translations);
         return [
             'id' => $this->id,
             'status' => $this->status,
-            'translations' => FoodTranslationResource::collection($this->translations),
-            'category' => new CategoryResource($this->category),
-            'ingredients' => IngredientResource::collection($this->ingredients),
-            'tags' => TagResource::collection($this->tags),
+            'translations' => array_pop($translations),
+            'category' => new CategoryResource($this->whenLoaded('category')),
+            'ingredients' => IngredientResource::collection($this->whenLoaded('ingredients')),
+            'tags' => TagResource::collection($this->whenLoaded('tags')),
         ];
     }
 }
