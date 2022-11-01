@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TagResource extends JsonResource
@@ -14,11 +15,12 @@ class TagResource extends JsonResource
      */
     public function toArray($request)
     {
+        $request->query('lang');
+        App::setLocale($request->query('lang'));
         return [
             'id' => $this->id,
             'slug' => $this->slug,
-            'foodId' => $this->food_id,
-            'translations' => TagTranslationResource::collection($this->translations)
+            'title' => $this->title,
         ];
     }
 }

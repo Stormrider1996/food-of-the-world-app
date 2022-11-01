@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class IngredientResource extends JsonResource
@@ -14,11 +15,12 @@ class IngredientResource extends JsonResource
      */
     public function toArray($request)
     {
+        $request->query('lang');
+        App::setLocale($request->query('lang'));
         return [
             'id' => $this->id,
             'slug' => $this->slug,
-            'foodId' => $this->food_id,
-            'translations' => IngredientTranslationResource::collection($this->translations)
+            'title' => $this->title,
         ];
     }
 }

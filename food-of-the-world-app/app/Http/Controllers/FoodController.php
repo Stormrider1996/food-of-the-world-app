@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Food;
+use App\Filters\FoodFilter;
+use Illuminate\Http\Request;
+use App\Models\FoodTranslation;
 use Illuminate\Routing\Controller;
-use App\Http\Resources\TagResource;
 use App\Http\Resources\FoodResource;
-use App\Http\Resources\CategoryResource;
-use App\Http\Resources\IngredientResource;
-
-use function GuzzleHttp\Promise\all;
+use App\Http\Resources\FoodTranslationResource;
 
 class FoodController extends Controller
 {
@@ -18,12 +17,19 @@ class FoodController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $withParms = array_filter(explode(",", request('with')));
-        return FoodResource::collection(Food::with($withParms)
-        -> paginate(request('per_page'), ['*'], 'page', request('page')));
+        $include = $request->query('with');;
+
+        if ($include) {
+            $withParms = explode("," , $request->query('with'));
+            $food = Food::with($withParms);
+        }
         
+        return FoodResource::collection($food->paginate($request->query('per_page'), ['*'], 'page', $request->query('page'))->appends($request->query()));
+       
     }
 
+        
 }
+

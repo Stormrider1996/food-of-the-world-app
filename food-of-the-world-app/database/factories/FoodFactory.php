@@ -21,20 +21,11 @@ class FoodFactory extends Factory
         $faker = \Faker\Factory::create();
         $faker->addProvider(new \FakerRestaurant\Provider\en_US\Restaurant($faker));
         
-        $type = $this->faker->randomElement(['C', 'U', 'D']);
-        if ($type == 'U'){
-            $status = 'updated';
-        } else if ($type == 'D') {
-            $status = 'deleted';
-        } else {
-            $status = 'created';
-        }
-        
         $title = $faker->foodName();
         $description = $this->faker->sentence();
        
         return [
-            'status' => $status,
+            'status' => 'created',
             'en' => [
                 'title' => $title,
                 'description' => $description,
